@@ -40,8 +40,6 @@ class ListFriendsAdapter(
                 update(dao.delete(friends[position].id))
                 update(dao.searchAll())
             }
-
-
         }
     }
 
@@ -54,9 +52,6 @@ class ListFriendsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val friend = friends[position]
         holder.linking(friend, context, dao, position)
-
-
-
     }
 
     override fun getItemCount(): Int = friends.size
@@ -78,23 +73,20 @@ class ListFriendsAdapter(
         dialog.setCancelable(true)
         dialog.setContentView(R.layout.dialog_friend)
         dialog.show()
-
         val friendName: EditText =
             dialog.findViewById(R.id.dialog_friend_name) as EditText
         val friendBirthday: EditText =
             dialog.findViewById(R.id.dialog_friend_birthday) as EditText
-        val buttonSave: Button =
+        val buttonUpdate: Button =
             dialog.findViewById(R.id.dialog_friend_button_save) as Button
-
         friendName.setText(friend.name)
         friendBirthday.setText(friend.birthdate)
+        buttonUpdate.text=context.getString(R.string.update)
 
-
-        buttonSave.setOnClickListener{
+        buttonUpdate.setOnClickListener{
             dao.modify(idFriend, Friend(idFriend, friendName.text.toString(), friendBirthday.text.toString()))
             update(dao.searchAll())
             dialog.dismiss()
         }
-
     }
 }

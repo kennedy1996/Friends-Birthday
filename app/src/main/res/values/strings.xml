@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Friends Birthday</string>
     <string name="save">SAVE</string>
+    <string name="update">UPDATE</string>
+    <string name="search_here">Search Here</string>
     <string name="name">Name</string>
     <string name="birthday">Birthday</string>
 </resources>

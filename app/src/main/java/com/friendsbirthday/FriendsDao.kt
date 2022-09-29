@@ -1,7 +1,5 @@
 package com.friendsbirthday
 
-import android.util.Log
-
 class FriendsDao {
 
     fun add(friend: Friend) {

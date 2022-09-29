@@ -5,33 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
-    <TextView
-        android:id="@+id/item_friend_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/item_friend_delete"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_friend_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Kennedy Martinez" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/item_friend_birthday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="#36E413"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/item_friend_name"
-        app:layout_constraintStart_toStartOf="@id/item_friend_name"
-        app:layout_constraintTop_toBottomOf="@id/item_friend_name"
-        tools:text="08/08" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/item_friend_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/item_friend_delete"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Kennedy Martinez" />
+
+            <TextView
+                android:id="@+id/item_friend_birthday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textColor="#36E413"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/item_friend_name"
+                app:layout_constraintStart_toStartOf="@id/item_friend_name"
+                app:layout_constraintTop_toBottomOf="@id/item_friend_name"
+                tools:text="08/08" />
 
     <ImageView
         android:id="@+id/item_friend_delete"
@@ -54,5 +75,7 @@
         app:layout_constraintTop_toTopOf="@+id/item_friend_birthday"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

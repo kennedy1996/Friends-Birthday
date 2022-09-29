@@ -4,4 +4,6 @@
     <string name="save">GUARDAR</string>
     <string name="name">Nombre</string>
     <string name="birthday">Compleaños</string>
+    <string name="update">Actualizar</string>
+    <string name="search_here">Buscar aquí</string>
 </resources>
