@@ -34,10 +34,10 @@ class ListFriendsAdapter(
             birthday.text = friend.birthdate
 
             binding.itemFriendModify.setOnClickListener {
-                showDialogFriendModify(context, friends[position], dao, position)
+                showDialogFriendModify(context, friends[position], dao, friends[position].id)
             }
             binding.itemFriendDelete.setOnClickListener {
-                update(dao.delete(position))
+                update(dao.delete(friends[position].id))
                 update(dao.searchAll())
             }
 
@@ -71,7 +71,7 @@ class ListFriendsAdapter(
         context: Context,
         friend: Friend,
         dao: FriendsDao,
-        position: Int
+        idFriend: Int
     ) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -91,7 +91,7 @@ class ListFriendsAdapter(
 
 
         buttonSave.setOnClickListener{
-            dao.modify(position, Friend(position, friendName.text.toString(), friendBirthday.text.toString()))
+            dao.modify(idFriend, Friend(idFriend, friendName.text.toString(), friendBirthday.text.toString()))
             update(dao.searchAll())
             dialog.dismiss()
         }
