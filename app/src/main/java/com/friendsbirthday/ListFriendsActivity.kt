@@ -36,8 +36,8 @@ class ListFriendsActivity : AppCompatActivity() {
             val buttonSave: Button =
                 dialog.findViewById(R.id.dialog_friend_button_save) as Button
 
-            friendName.hint="Digite o Nome"
-            friendBirthday.hint="Digite o Aniversário"
+            friendName.hint="Name"
+            friendBirthday.hint="Birthday"
 
             buttonSave.setOnClickListener {
                 dao.add(Friend(5, friendName.text.toString(), friendBirthday.text.toString()))

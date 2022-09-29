@@ -38,7 +38,7 @@
         android:id="@+id/dialog_friend_button_save"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="SAVE"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dialog_friend_birthday"
         app:layout_constraintStart_toStartOf="@+id/dialog_friend_birthday"

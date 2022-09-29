@@ -13,7 +13,7 @@ class FriendsDao {
         friends[id] = Friend(id, friend.name, friend.birthdate)
         return friends.toList()
     }
-    fun remove(id: Int) : List<Friend> {
+    fun delete(id: Int) : List<Friend> {
         friends.removeAt(id)
         return friends.toList()
     }
@@ -21,7 +21,7 @@ class FriendsDao {
     companion object {
         private val friends = mutableListOf<Friend>(
             Friend(1, "Kennedy", "08/08"),
-            Friend(2, "Danilo", "18/09")
+            Friend(2, "Isabella", "18/08")
         )
     }
 }

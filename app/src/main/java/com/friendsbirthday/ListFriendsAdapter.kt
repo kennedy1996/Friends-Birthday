@@ -18,14 +18,30 @@ class ListFriendsAdapter(
 
     private val friends = produtos.toMutableList()
 
-    class ViewHolder(private val binding: ItemFriendBinding) :
+
+    inner class ViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun linking(friend: Friend) {
+        fun linking(
+            friend: Friend,
+            context: Context,
+            dao: FriendsDao,
+            position: Int
+        ) {
             val name = binding.itemFriendName
             name.text = friend.name
             val birthday = binding.itemFriendBirthday
             birthday.text = friend.birthdate
+
+            binding.itemFriendModify.setOnClickListener {
+                showDialogFriendModify(context, friends[position], dao, position)
+            }
+            binding.itemFriendDelete.setOnClickListener {
+                update(dao.delete(position))
+                update(dao.searchAll())
+            }
+
+
         }
     }
 
@@ -37,11 +53,10 @@ class ListFriendsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val friend = friends[position]
-        holder.linking(friend)
+        holder.linking(friend, context, dao, position)
 
-        holder.itemView.setOnClickListener {
-            showDialogFriend(context, friends[position], dao, position)
-        }
+
+
     }
 
     override fun getItemCount(): Int = friends.size
@@ -52,7 +67,7 @@ class ListFriendsAdapter(
         notifyDataSetChanged()
     }
 
-    private fun showDialogFriend(
+    fun showDialogFriendModify(
         context: Context,
         friend: Friend,
         dao: FriendsDao,
@@ -71,8 +86,9 @@ class ListFriendsAdapter(
         val buttonSave: Button =
             dialog.findViewById(R.id.dialog_friend_button_save) as Button
 
-        friendName.hint=friend.name
-        friendBirthday.hint=friend.birthdate
+        friendName.setText(friend.name)
+        friendBirthday.setText(friend.birthdate)
+
 
         buttonSave.setOnClickListener{
             dao.modify(position, Friend(position, friendName.text.toString(), friendBirthday.text.toString()))
