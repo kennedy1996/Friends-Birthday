@@ -3,26 +3,47 @@ package com.friendsbirthday
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.friendsbirthday.databinding.ActivityFriendsListBinding
+import com.friendsbirthday.repository.FriendsRepository
+import com.friendsbirthday.webservice.FriendWebClient
+import kotlinx.coroutines.launch
 
 class ListFriendsActivity : AppCompatActivity() {
 
-    private val dao = FriendsDao()
+    private val dao = FriendDao()
     private val adapter = ListFriendsAdapter(context = this, produtos = dao.searchAll(), dao = dao)
     private val binding by lazy {
         ActivityFriendsListBinding.inflate(layoutInflater)
     }
+    private val repository by lazy {
+        FriendsRepository(dao,FriendWebClient()
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        configRecyclerView()
         clickingAddButton()
         usingSearch()
+
+        lifecycleScope.launch {
+            launch {
+                sync()
+            }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                configRecyclerView()
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
     private fun clickingAddButton() {
         binding.activityFriendsListFab.setOnClickListener {
-            dialogNewFriend(this, dao, adapter)
+                dialogNewFriend(this, dao, adapter, repository)
+
         }
     }
 
@@ -48,5 +69,10 @@ class ListFriendsActivity : AppCompatActivity() {
     private fun configRecyclerView() {
         val recyclerView = binding.activityFriendsListRecyclerview
         recyclerView.adapter = adapter
+    }
+
+    private suspend fun sync() {
+        repository.sync()
+        adapter.update(dao.searchAll())
     }
 }

@@ -5,11 +5,17 @@ import android.content.Context
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import com.friendsbirthday.repository.FriendsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun dialogNewFriend(
     context: Context,
-    dao: FriendsDao,
+    dao: FriendDao,
     adapter: ListFriendsAdapter,
+    repository: FriendsRepository,
 ) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -29,8 +35,11 @@ fun dialogNewFriend(
 
     buttonSave.text = context.getString(R.string.save)
     buttonSave.setOnClickListener {
-        dao.add(Friend(name = friendName.text.toString(), birthdate = friendBirthday.text.toString()))
-        adapter.update(dao.searchAll())
-        dialog.dismiss()
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.add(Friend(name = friendName.text.toString(), birthdate = friendBirthday.text.toString()))
+            dialog.dismiss()
+            withContext(Dispatchers.Main) {}
+        }
+
     }
 }

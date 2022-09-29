@@ -1,7 +1,15 @@
 package com.friendsbirthday
 
-class FriendsDao {
+import android.util.Log
 
+class FriendDao {
+
+    fun addAllNew(listFriend: List<Friend>) {
+        Log.i("testeNovos", "size Antes: ${listFriend.size}")
+        friends.clear()
+        friends.addAll(listFriend)
+        Log.i("testeNovos", "size Depois: ${listFriend.size}")
+    }
     fun add(friend: Friend) {
         friends.add(Friend(friends.size + 1, friend.name, friend.birthdate))
     }
@@ -15,7 +23,7 @@ class FriendsDao {
         return friends.toList()
     }
 
-    fun delete(id: Int): List<Friend> {
+    fun remove(id: Int): List<Friend> {
         friends.removeAt(searchId(id))
         return friends.toList()
     }
@@ -27,9 +35,6 @@ class FriendsDao {
         }
         return returnF
     }
-
-
-
     fun search(name: String): List<Friend> {
         var vReturn = friends.toList()
         if (name != "") {
@@ -43,9 +48,6 @@ class FriendsDao {
     }
 
     companion object {
-        private val friends = mutableListOf<Friend>(
-            Friend(1, "Kennedy", "08/08"),
-            Friend(2, "Isabella", "18/08")
-        )
+        private val friends = mutableListOf<Friend>()
     }
 }

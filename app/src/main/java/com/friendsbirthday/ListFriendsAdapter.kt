@@ -13,7 +13,7 @@ import com.friendsbirthday.databinding.ItemFriendBinding
 class ListFriendsAdapter(
     private val context: Context,
     produtos: List<Friend>,
-    private val dao: FriendsDao
+    private val dao: FriendDao
 ) : RecyclerView.Adapter<ListFriendsAdapter.ViewHolder>() {
 
     private val friends = produtos.toMutableList()
@@ -25,7 +25,7 @@ class ListFriendsAdapter(
         fun linking(
             friend: Friend,
             context: Context,
-            dao: FriendsDao,
+            dao: FriendDao,
             position: Int
         ) {
             val name = binding.itemFriendName
@@ -37,7 +37,7 @@ class ListFriendsAdapter(
                 showDialogFriendModify(context, friends[position], dao, friends[position].id)
             }
             binding.itemFriendDelete.setOnClickListener {
-                update(dao.delete(friends[position].id))
+                update(dao.remove(friends[position].id))
                 update(dao.searchAll())
             }
         }
@@ -65,7 +65,7 @@ class ListFriendsAdapter(
     fun showDialogFriendModify(
         context: Context,
         friend: Friend,
-        dao: FriendsDao,
+        dao: FriendDao,
         idFriend: Int
     ) {
         val dialog = Dialog(context)
