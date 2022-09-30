@@ -1,6 +1,6 @@
 package com.friendsbirthday.webservice
 
-import com.friendsbirthday.Friend
+import com.friendsbirthday.dao.Friend
 import retrofit2.Response
 import retrofit2.http.*
 

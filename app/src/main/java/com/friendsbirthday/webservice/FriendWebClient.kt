@@ -1,7 +1,7 @@
 package com.friendsbirthday.webservice
 
 import android.util.Log
-import com.friendsbirthday.Friend
+import com.friendsbirthday.dao.Friend
 
 
 private const val TAG = "FriendWebService"
@@ -29,6 +29,19 @@ class FriendWebClient {
             val friend = friendService.save(friend)
             return friend.isSuccessful
         } catch (e: Exception) {
+            Log.e(TAG, "save: error trying to save", e)
+        }
+        return false
+    }
+
+    suspend fun modify(friend: Friend): Boolean {
+
+        try {
+            val friend = friendService.save(friend)
+            Log.i("testemodify", "modify: passou")
+            return friend.isSuccessful
+        } catch (e: Exception) {
+            Log.i("testemodify", "modify: NÃO PASSOU")
             Log.e(TAG, "save: error trying to save", e)
         }
         return false

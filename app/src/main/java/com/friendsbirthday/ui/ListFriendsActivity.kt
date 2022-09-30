@@ -1,4 +1,4 @@
-package com.friendsbirthday
+package com.friendsbirthday.ui
 
 import android.os.Bundle
 import android.widget.SearchView
@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.friendsbirthday.dao.FriendDao
+import com.friendsbirthday.ui.adapter.ListFriendsAdapter
 import com.friendsbirthday.databinding.ActivityFriendsListBinding
+import com.friendsbirthday.dialogNewFriend
 import com.friendsbirthday.repository.FriendsRepository
 import com.friendsbirthday.webservice.FriendWebClient
 import kotlinx.coroutines.launch
@@ -14,7 +17,6 @@ import kotlinx.coroutines.launch
 class ListFriendsActivity : AppCompatActivity() {
 
     private val dao = FriendDao()
-    private val adapter = ListFriendsAdapter(context = this, produtos = dao.searchAll(), dao = dao)
     private val binding by lazy {
         ActivityFriendsListBinding.inflate(layoutInflater)
     }
@@ -22,6 +24,7 @@ class ListFriendsActivity : AppCompatActivity() {
         FriendsRepository(dao,FriendWebClient()
         )
     }
+    private val adapter = ListFriendsAdapter(context = this, produtos = dao.searchAll(), dao = dao, repository= repository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

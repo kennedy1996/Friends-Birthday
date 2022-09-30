@@ -1,4 +1,4 @@
-package com.friendsbirthday
+package com.friendsbirthday.ui.adapter
 
 import android.app.Dialog
 import android.content.Context
@@ -8,12 +8,21 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
+import com.friendsbirthday.dao.Friend
+import com.friendsbirthday.dao.FriendDao
+import com.friendsbirthday.R
 import com.friendsbirthday.databinding.ItemFriendBinding
+import com.friendsbirthday.repository.FriendsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListFriendsAdapter(
     private val context: Context,
     produtos: List<Friend>,
-    private val dao: FriendDao
+    private val dao: FriendDao,
+    private val repository: FriendsRepository
 ) : RecyclerView.Adapter<ListFriendsAdapter.ViewHolder>() {
 
     private val friends = produtos.toMutableList()
@@ -37,6 +46,10 @@ class ListFriendsAdapter(
                 showDialogFriendModify(context, friends[position], dao, friends[position].id)
             }
             binding.itemFriendDelete.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    repository.remove(friends[position].id)
+                    withContext(Dispatchers.Main) {}
+                }
                 update(dao.remove(friends[position].id))
                 update(dao.searchAll())
             }
@@ -84,7 +97,11 @@ class ListFriendsAdapter(
         buttonUpdate.text=context.getString(R.string.update)
 
         buttonUpdate.setOnClickListener{
-            dao.modify(idFriend, Friend(idFriend, friendName.text.toString(), friendBirthday.text.toString()))
+            CoroutineScope(Dispatchers.IO).launch {
+                repository.modify(Friend(name = friendName.text.toString(), birthdate = friendBirthday.text.toString()))
+                dialog.dismiss()
+                withContext(Dispatchers.Main) {}
+            }
             update(dao.searchAll())
             dialog.dismiss()
         }

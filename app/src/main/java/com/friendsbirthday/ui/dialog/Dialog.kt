@@ -5,7 +5,10 @@ import android.content.Context
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import com.friendsbirthday.dao.Friend
+import com.friendsbirthday.dao.FriendDao
 import com.friendsbirthday.repository.FriendsRepository
+import com.friendsbirthday.ui.adapter.ListFriendsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

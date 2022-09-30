@@ -1,4 +1,4 @@
-package com.friendsbirthday
+package com.friendsbirthday.ui.adapter
 
 interface OnItemClickListener {
 

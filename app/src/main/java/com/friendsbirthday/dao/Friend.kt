@@ -1,4 +1,4 @@
-package com.friendsbirthday
+package com.friendsbirthday.dao
 
 data class Friend(
     val id: Int = 1,

@@ -1,24 +1,30 @@
-package com.friendsbirthday
-
-import android.util.Log
+package com.friendsbirthday.dao
 
 class FriendDao {
 
     fun addAllNew(listFriend: List<Friend>) {
-        Log.i("testeNovos", "size Antes: ${listFriend.size}")
         friends.clear()
         friends.addAll(listFriend)
-        Log.i("testeNovos", "size Depois: ${listFriend.size}")
     }
     fun add(friend: Friend) {
         friends.add(Friend(friends.size + 1, friend.name, friend.birthdate))
+    }
+
+    fun nextId(): Int {
+        var higher=0
+        for(i in friends.indices){
+            if(friends[i].id>higher){
+                higher= friends[i].id
+            }
+        }
+        return higher+1
     }
 
     fun searchAll(): List<Friend> {
         return friends.toList()
     }
 
-    fun modify(id: Int, friend: Friend): List<Friend> {
+    fun modify(friend: Friend): List<Friend> {
         friends[searchId(friend.id)] = friend
         return friends.toList()
     }
@@ -29,11 +35,11 @@ class FriendDao {
     }
 
     fun searchId(idFriend: Int): Int {
-        var returnF = 0
+        var vReturn = 0
         for(i in friends.indices){
-            if(friends[i].id == idFriend) returnF= i
+            if(friends[i].id == idFriend) vReturn= i
         }
-        return returnF
+        return vReturn
     }
     fun search(name: String): List<Friend> {
         var vReturn = friends.toList()

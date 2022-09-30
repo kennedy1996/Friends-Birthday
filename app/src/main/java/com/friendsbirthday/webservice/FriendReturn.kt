@@ -1,6 +1,6 @@
 package com.friendsbirthday.webservice
 
-import com.friendsbirthday.Friend
+import com.friendsbirthday.dao.Friend
 
 class FriendReturn(
     val name: String?,
@@ -8,7 +8,8 @@ class FriendReturn(
     val id: Int,
 ) {
 
-    val friend: Friend get() = Friend(
+    val friend: Friend
+        get() = Friend(
         id = id,
         birthdate = birthdate ?: "",
         name = name ?: "",

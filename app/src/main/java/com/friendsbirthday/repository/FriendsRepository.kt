@@ -1,8 +1,7 @@
 package com.friendsbirthday.repository
 
-import android.util.Log
-import com.friendsbirthday.Friend
-import com.friendsbirthday.FriendDao
+import com.friendsbirthday.dao.Friend
+import com.friendsbirthday.dao.FriendDao
 import com.friendsbirthday.webservice.FriendWebClient
 
 class FriendsRepository(
@@ -21,8 +20,15 @@ class FriendsRepository(
     }
 
     suspend fun add(friend: Friend) {
-        if (webClient.add(friend)) {
-            dao.add(friend)
+        val newFriend = Friend(dao.nextId(), friend.name, friend.birthdate)
+        if (webClient.add(newFriend)) {
+            dao.add(newFriend)
+        }
+    }
+
+    suspend fun modify(friend: Friend) {
+        if (webClient.modify(friend)) {
+            dao.modify(friend)
         }
     }
 
